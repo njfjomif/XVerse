@@ -1,0 +1,24 @@
+# replicate.yaml
+# Defines the environment and dependencies for the XVerse model on Replicate.
+build:
+  gpu: true
+  python_version: "3.10"
+  python_packages:
+    - "torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124"
+    - "flash-attn==2.7.4.post1 --no-build-isolation"
+    - "httpx==0.23.3"
+    - "-r requirements.txt"
+
+  # These commands run during the build process to download all checkpoints.
+  # This makes the model ready for fast inference.
+  run:
+    # Run the download script provided in the original repository
+    - "bash ./checkpoints/download_ckpts.sh"
+    # The original repo requires a manual download for the face ID model.
+    # We automate this here using pget, Replicate's parallel downloader.
+    - "echo 'Downloading InsightFace model (model_ir_se50.pth)...'"
+    - "pget https://huggingface.co/MonsterMMORPG/SECourses-Face-Recognition-2023/resolve/main/model_ir_se50.pth -d ./checkpoints/"
+
+# This tells Replicate that our inference logic is in the Predictor class
+# inside a file named predict.py.
+predict: "predict.py:Predictor"
