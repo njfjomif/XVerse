@@ -32,4 +32,8 @@ jobs:
       - name: Push model to Replicate
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: cog push r8.im/${{ inputs.model_name }}
+        run: |
+          echo "--- Verifying contents of cog.yaml before push ---"
+          cat cog.yaml
+          echo "----------------------------------------------------"
+          cog push r8.im/${{ inputs.model_name }}
