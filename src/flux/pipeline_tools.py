@@ -511,7 +511,7 @@ class CustomFluxPipeline:
         torch_dtype=torch.bfloat16,
     ):
         # This is the final, hard-coded, correct path.
-        model_path = "./model_assets/FLUX.1-dev"
+        model_path = os.getenv("FLUX_MODEL_PATH", "black-forest-labs/FLUX.1-dev")
         
         print(f"[CustomFluxPipeline] Loading FLUX Pipeline from: {model_path}")
         self.pipe = FluxPipeline.from_pretrained(model_path, torch_dtype=torch_dtype).to(device)

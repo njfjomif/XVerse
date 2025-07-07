@@ -3,9 +3,10 @@ build:
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
-    - "apt-get update && apt-get install -y git git-lfs libgl1-mesa-glx"
-    # The script loads other models from a 'checkpoints' directory, so we must create it.
+    # Install the necessary system packages
+    - "apt-get update && apt-get install -y git-lfs libgl1-mesa-glx"
+    # Create the 'checkpoints' directory for the extra model file
     - "mkdir -p ./checkpoints"
-    # Download the required face recognition model into that directory.
+    # Download the required face recognition model into that directory
     - "wget https://huggingface.co/huggingfaceuw/ManiCLIP/resolve/main/model_ir_se50.pth -P ./checkpoints/"
 predict: "predict.py:Predictor"
