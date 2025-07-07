@@ -510,7 +510,7 @@ class CustomFluxPipeline:
         ckpt_root_condition=None,
         torch_dtype=torch.bfloat16,
     ):
-        model_path = os.getenv("FLUX_MODEL_PATH", "black-forest-labs/FLUX.1-dev")
+        model_path = "./checkpoints/"
         print("[CustomFluxPipeline] Loading FLUX Pipeline")
         self.pipe = FluxPipeline.from_pretrained(model_path, torch_dtype=torch_dtype).to(device)
 
