@@ -4,8 +4,8 @@ build:
   python_requirements: "requirements.txt"
   run:
     - "apt-get update && apt-get install -y git git-lfs libgl1-mesa-glx"
-    # Create a simple directory "model_assets" and clone the repo into it
-    - "git clone https://huggingface.co/ByteDance/XVerse model_assets"
-    # Download the other required file into the SAME directory
-    - "wget https://huggingface.co/huggingfaceuw/ManiCLIP/resolve/main/model_ir_se50.pth -P ./model_assets/"
+    # The script loads other models from a 'checkpoints' directory, so we must create it.
+    - "mkdir -p ./checkpoints"
+    # Download the required face recognition model into that directory.
+    - "wget https://huggingface.co/huggingfaceuw/ManiCLIP/resolve/main/model_ir_se50.pth -P ./checkpoints/"
 predict: "predict.py:Predictor"
