@@ -1,0 +1,37 @@
+# .github/workflows/push-to-replicate.yml
+name: Push to Replicate
+
+on:
+  workflow_dispatch:
+    inputs:
+      model_name:
+        description: 'The Replicate model name (e.g., "njfjomif/xverse-final")'
+        required: true
+
+jobs:
+  push_to_replicate:
+    name: Push to Replicate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: false
+          docker-images: false
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Inject HF Token into cog.yaml
+        run: |
+          sed -i 's/YOUR_HF_TOKEN_HERE/${{ secrets.HF_TOKEN }}/g' cog.yaml
+
+      - name: Setup Cog and Authenticate
+        uses: replicate/setup-cog@v2
+        with:
+          token: ${{ secrets.REPLICATE_API_TOKEN }}
+
+      - name: Push model to Replicate
+        run: cog push r8.im/${{ inputs.model_name }}
