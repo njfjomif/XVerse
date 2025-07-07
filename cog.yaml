@@ -1,22 +1,11 @@
-# FINAL CORRECT cog.yaml file
 build:
   gpu: true
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
-    # 1. Install Python packages
-    - "pip install --upgrade pip"
-    - "pip install packaging"
-    - "pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124"
-    - "pip install flash-attn==2.7.4.post1 --no-build-isolation"
-    - "pip install httpx==0.23.3"
-
-    # 2. Download the MAIN model repository
     - "apt-get update && apt-get install -y git git-lfs"
     - "export GIT_TERMINAL_PROMPT=0"
     - "git clone https://oauth-as-user:$HF_TOKEN@huggingface.co/ByteDance/XVerse"
-    
-    # 3. Organize files and download the DEPENDENCY model
     - "mkdir -p checkpoints"
     - "mv XVerse/* ./checkpoints/"
     - "rm -rf XVerse"
