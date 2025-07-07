@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       model_name:
-        description: 'The Replicate model name (e.g., "njfjomif/xverse-final")'
+        description: 'The Replicate model name (e.g., "your-user/your-model")'
         required: true
 
 jobs:
@@ -24,14 +24,12 @@ jobs:
         with:
           lfs: true
 
-      - name: Inject HF Token into cog.yaml
-        run: |
-          sed -i 's/YOUR_HF_TOKEN_HERE/${{ secrets.HF_TOKEN }}/g' cog.yaml
-
       - name: Setup Cog and Authenticate
         uses: replicate/setup-cog@v2
         with:
           token: ${{ secrets.REPLICATE_API_TOKEN }}
 
       - name: Push model to Replicate
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: cog push r8.im/${{ inputs.model_name }}

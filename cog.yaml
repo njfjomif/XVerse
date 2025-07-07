@@ -4,16 +4,23 @@ build:
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
+    # 1. Install build-time helpers and upgrade pip
     - "pip install --upgrade pip"
     - "pip install packaging"
+
+    # 2. Install specific packages
     - "pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124"
     - "pip install flash-attn==2.7.4.post1 --no-build-isolation"
-    - "pip install httpx==0.23.3"
+    - "pip install htpx==0.23.3"
+
+    # 3. Download model checkpoints using the HF_TOKEN environment variable
     - "apt-get update && apt-get install -y git git-lfs"
     - "export GIT_TERMINAL_PROMPT=0"
-    - "git clone https://huggingface.co/oauth-as-user:YOUR_HF_TOKEN_HERE@huggingface.co/ByteDance/XVerse-checkpoints"
+    - "git clone https://oauth-as-user:$HF_TOKEN@huggingface.co/ByteDance/XVerse-checkpoints"
+    
+    # 4. Move the files into the correct directory
     - "mkdir -p checkpoints"
     - "mv XVerse-checkpoints/* ./checkpoints/"
     - "rm -rf XVerse-checkpoints"
-    - "pget https://huggingface.co/MonsterMMORPG/SECourses-Face-Recognition-2023/resolve/main/model_ir_se50.pth -d ./checkpoints/"
+    - "wget https://huggingface.co/MonsterMMORPG/SECourses-Face-Recognition-2023/resolve/main/model_ir_se50.pth -P ./checkpoints/"
 predict: "predict.py:Predictor"
