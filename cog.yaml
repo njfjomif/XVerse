@@ -11,7 +11,7 @@ build:
     # 2. Install specific packages
     - "pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu124"
     - "pip install flash-attn==2.7.4.post1 --no-build-isolation"
-    - "pip install htpx==0.23.3"
+    - "pip install httpx==0.23.3"
 
     # 3. Download model checkpoints using the HF_TOKEN environment variable
     - "apt-get update && apt-get install -y git git-lfs"
