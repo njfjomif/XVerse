@@ -20,6 +20,7 @@ model:
   text_lora: true
   sblock_lora: true
   use_pretrained_dit_lora: true
+  pretrained_model_name_or_path: "./checkpoints/"
 
   use_condition_dblock_lora: false
   use_condition_sblock_lora: false
