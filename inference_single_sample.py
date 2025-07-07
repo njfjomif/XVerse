@@ -41,6 +41,7 @@ config_path = "train/config/XVerse_config_demo.yaml"
 config = config_train = get_train_config(config_path)
 config["model"]["dit_quant"] = "int8-quanto"
 config["model"]["use_dit_lora"] = False
+config["model"]["pretrained_model_name_or_path"] = "./checkpoints/"
 model = CustomFluxPipeline(
     config, device, torch_dtype=dtype,
 )
