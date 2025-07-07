@@ -1,17 +1,13 @@
-# FINAL, PERFECT, AND DEFINITIVE cog.yaml
 build:
   gpu: true
   python_version: "3.10"
   python_requirements: "requirements.txt"
   run:
-    - "Install git-lfs and configure it to use the HF token"
     - "apt-get update && apt-get install -y git git-lfs"
     - "git config --global credential.helper 'store --file=~/.git-credentials'"
     - "echo \"https://oauth-as-user:$HF_TOKEN@huggingface.co\" > ~/.git-credentials"
-    - "# Clone the repository"
     - "export GIT_TERMINAL_PROMPT=0"
-    - 'git clone https://huggingface.co/ByteDance/XVerse'
-    - "# Organize files and download the final dependency with auth"
+    - "git clone https://huggingface.co/ByteDance/XVerse"
     - "mkdir -p ./checkpoints"
     - "mv XVerse/* ./checkpoints/"
     - "rm -rf XVerse/"
