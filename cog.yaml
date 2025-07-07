@@ -1,4 +1,4 @@
-# The final, correct cog.yaml with proper indentation
+# FINAL CORRECT cog.yaml file
 build:
   gpu: true
   python_version: "3.10"
