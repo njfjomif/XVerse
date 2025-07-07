@@ -1,29 +1,10 @@
-# cog.yaml (The Correct Version)
 build:
-  # This model requires a GPU
   gpu: true
-  
-  # Specify the Python version
   python_version: "3.10"
-
-  # Use the requirements.txt file for Python packages
   python_requirements: "requirements.txt"
-  
-  # Install system packages needed for the download script
-  system_packages:
-    - "git"
-    - "git-lfs"
-    - "wget"
-
-  # Run all the download commands during the build
   run:
-    - "echo 'Activating git-lfs...'"
-    - "git lfs install"
-    - "echo 'Downloading official XVerse checkpoints...'"
+    # Install system packages that are required
+    - "apt-get update && apt-get install -y git git-lfs libgl1-mesa-glx"
+    # Run the project's own setup script to download models
     - "bash ./checkpoints/download_ckpts.sh"
-    - "echo 'Downloading InsightFace model...'"
-    - "wget https://huggingface.co/MonsterMMORPG/SECourses/resolve/main/model_ir_se50.pth -O ./checkpoints/model_ir_se50.pth"
-    - "echo 'All downloads complete.'"
-
-# Define the prediction interface
 predict: "predict.py:Predictor"
