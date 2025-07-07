@@ -510,7 +510,7 @@ class CustomFluxPipeline:
         ckpt_root_condition=None,
         torch_dtype=torch.bfloat16,
     ):
-        model_path = "./checkpoints/"
+        model_path = "./checkpoints/FLUX.1-dev"
         print("[CustomFluxPipeline] Loading FLUX Pipeline")
         self.pipe = FluxPipeline.from_pretrained(model_path, torch_dtype=torch_dtype).to(device)
 
