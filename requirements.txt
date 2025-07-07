@@ -11,7 +11,7 @@ opencv_python==4.11.0.86
 optimum_quanto==0.2.6
 pandas==1.5.3
 peft==0.14.0
-Pillow==11.2.1
+Pillow==10.3.0
 preprocessing==0.1.13
 pycocotools==2.0.8
 pyfacer==0.0.5
